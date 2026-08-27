@@ -96,3 +96,22 @@ Empty fields mean LinkedIn did not send that section for that profile.
 | 401 | Session expired or the two cookies are not from the same login |
 | 422 | Body is not valid JSON / URL |
 | 502 | LinkedIn failed on the upstream call |
+
+## Run it on your machine
+
+Clone the repo, install, start the server:
+
+```bash
+git clone https://github.com/Blackstocks/linkedin_parser.git
+cd linkedin_parser
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+On Windows, after creating the venv, run `.venv\Scripts\activate` instead of `source .venv/bin/activate`.
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Same as the live site: paste your `li_at` and `JSESSIONID` from Chrome (Application → Cookies → `https://www.linkedin.com`), plus a profile URL. Swagger is at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+Cookies in the form are enough. `.env` is optional — copy `.env.example` to `.env` only if you want a fallback when the form fields are empty.

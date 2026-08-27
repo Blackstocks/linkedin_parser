@@ -13,7 +13,6 @@ from app.models import (
 
 
 def parse_voyager_profile(payload: Any) -> Profile:
-    """Normalize a Voyager identity/dash or GraphQL profile payload."""
     typed = _index_by_type(payload)
     profile_node = _first_profile_node(typed) or {}
     fallback = parse_profile_payload(payload)

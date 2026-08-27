@@ -35,7 +35,6 @@ SKIP_TEXT_KEYS = {
 
 
 def parse_profile_payload(payload: Any) -> Profile:
-    """Walk an SDUI/RSC tree and normalize visible profile fields."""
     intro = _extract_intro(payload)
     sections = _collect_sections(payload)
 
@@ -230,7 +229,6 @@ def _extract_intro(payload: Any) -> dict[str, str]:
 
 
 def _guess_top_card(payload: Any) -> dict[str, str]:
-    """Use the first prominent title/subtitle/caption cluster as the top card."""
     for node in _walk(payload):
         if not isinstance(node, dict):
             continue

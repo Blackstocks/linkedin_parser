@@ -36,8 +36,6 @@ GRAPHQL_QUERY_IDS = (
 
 
 class LinkedInClient:
-    """Authenticated LinkedIn reads using the same session cookies as the browser."""
-
     def __init__(self, settings: Settings, client: httpx.AsyncClient | None = None) -> None:
         self._settings = settings
         self._owns_client = client is None
@@ -154,7 +152,6 @@ class LinkedInClient:
         return response.text
 
     def _seed_cookies(self) -> None:
-        """Load .env cookies into the jar so LinkedIn Set-Cookie updates can stick."""
         self._set_cookie("li_at", self._settings.linkedin_li_at, "www.linkedin.com")
         self._set_cookie("JSESSIONID", self._settings.linkedin_jsessionid, "www.linkedin.com")
         for name, value in _parse_cookie_fragment(self._settings.linkedin_extra_cookies).items():

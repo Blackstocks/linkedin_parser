@@ -1,20 +1,4 @@
 #!/usr/bin/env python3
-"""Copy LinkedIn cookies from a Chrome instance you already logged into.
-
-This does not log in, solve CAPTCHA, or keep a session alive forever.
-It only reads cookies from Chrome DevTools (port 9222) into .env.
-
-1. Quit Chrome completely.
-2. Start Chrome with remote debugging, using a profile that is logged into LinkedIn:
-
-   /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome \\
-     --remote-debugging-port=9222 --remote-allow-origins=* \\
-     --user-data-dir="$HOME/.linkedin-chrome-profile"
-
-3. In that window, open https://www.linkedin.com/feed/ and confirm you are signed in.
-4. python scripts/sync_chrome_cookies.py
-5. Restart uvicorn so it reloads .env.
-"""
 
 from __future__ import annotations
 

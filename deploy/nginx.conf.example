@@ -1,6 +1,3 @@
-# Optional nginx TLS terminator if you prefer nginx over Caddy.
-# Place fullchain.pem and privkey.pem in ../certs/
-
 server {
     listen 443 ssl http2;
     server_name example.com;

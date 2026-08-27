@@ -13,7 +13,6 @@ _ALLOWED_HOSTS = {"linkedin.com", "www.linkedin.com", "linkedin.cn", "www.linked
 
 
 def extract_vanity_name(linkedin_url: str) -> str:
-    """Return the public profile slug from a LinkedIn profile URL."""
     parsed = urlparse(str(linkedin_url).strip())
     if parsed.scheme not in {"http", "https"}:
         raise InvalidLinkedInUrlError("linkedin_url must use http or https")

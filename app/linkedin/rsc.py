@@ -11,15 +11,6 @@ _FLIGHT_LINE = re.compile(r"^(?:[A-Za-z])?(?P<id>\d+):(?P<body>.*)$")
 
 
 def decode_rsc_payload(raw: str) -> Any:
-    """Decode LinkedIn's RSC/SDUI wire format into JSON-compatible Python values.
-
-    The flagship-web component endpoint is not a single JSON document. Observed
-    shapes include:
-
-    * a JSON object or array
-    * React Flight / RSC lines (`0:{...}`, `1:[...]`)
-    * a stream of concatenated JSON values
-    """
     text = (raw or "").lstrip("\ufeff").strip()
     if not text:
         return {}

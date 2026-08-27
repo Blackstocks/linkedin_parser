@@ -4,7 +4,6 @@ from pathlib import Path
 
 
 def upsert_env(path: Path, updates: dict[str, str]) -> None:
-    """Replace or append KEY=value lines without printing secrets."""
     existing = path.read_text(encoding="utf-8") if path.exists() else ""
     lines = existing.splitlines()
     written = set()
