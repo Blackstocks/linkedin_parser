@@ -10,6 +10,12 @@ The form on the live site is the main way to test. Paste `li_at` and `JSESSIONID
 
 How I pull them from Chrome: DevTools → Application → Cookies → `https://www.linkedin.com` → copy **Value** for `li_at` and `JSESSIONID`.
 
+## Approach
+
+LinkedIn has no public API I can use here to fetch an arbitrary `/in/...` profile. I replay **your** already-logged-in Chrome session: you send `li_at` + `JSESSIONID` with the URL; I attach those cookies, derive CSRF from `JSESSIONID`, and call Voyager identity dash (`/voyager/api/identity/dash/profiles`). I map that payload into my own JSON schema (`app/models.py`) instead of returning LinkedIn’s raw response.
+
+If identity dash comes back thin, I try Voyager GraphQL, then the flagship SDUI component call as a last resort. I do not scrape `/in/...` HTML (LinkedIn answers that with 999). I do not log in for you, solve CAPTCHA, or store cookies.
+
 ## How it works
 
 ```mermaid
@@ -115,3 +121,14 @@ On Windows, after creating the venv, run `.venv\Scripts\activate` instead of `so
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Same as the live site: paste your `li_at` and `JSESSIONID` from Chrome (Application → Cookies → `https://www.linkedin.com`), plus a profile URL. Swagger is at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 Cookies in the form are enough. `.env` is optional — copy `.env.example` to `.env` only if you want a fallback when the form fields are empty.
+
+## Known limitations
+
+- Cookies die. LinkedIn rotates `li_at` / `JSESSIONID`. A 401 means copy both again from the **same** Chrome session. Mixing cookies from two browsers or two times will fail.
+- First lookup can work and the next one 401. That is LinkedIn invalidating the session, not the form “losing” the values.
+- Only public-style `/in/{vanity}/` URLs. Company pages, search URLs, and Sales Navigator links return 400.
+- A 200 can still have empty `about`, `experience`, `skills`, `certifications`, or `languages`. I only fill what Voyager sent for that profile.
+- Certifications and languages are often empty even when the profile page shows them; those blocks frequently live outside the identity-dash payload I use.
+- LinkedIn can 429 / 502 if you hammer Send. I do not retry in a loop.
+- This is not official LinkedIn OAuth. If they change Voyager decorations or start challenging the session, lookups break until the client is updated.
+- Cold start: the live Render URL can take a few seconds on the first hit after idle.
