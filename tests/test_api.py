@@ -34,6 +34,13 @@ def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
     get_settings.cache_clear()
 
 
+def test_docs_is_available_without_openapi_json(client: TestClient) -> None:
+    docs = client.get("/docs")
+    assert docs.status_code == 200
+    assert "swagger-ui" in docs.text
+    assert client.get("/openapi.json").status_code == 404
+
+
 def test_health(client: TestClient) -> None:
     response = client.get("/health")
     assert response.status_code == 200

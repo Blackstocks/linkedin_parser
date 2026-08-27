@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -7,7 +8,8 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.config import Settings, get_settings
@@ -65,6 +67,33 @@ async def unhandled_error_handler(_request: Request, exc: Exception) -> JSONResp
         error=ErrorBody(code="internal_error", message="An unexpected error occurred")
     )
     return JSONResponse(status_code=500, content=body.model_dump())
+
+
+@app.get("/docs", include_in_schema=False)
+async def swagger_ui() -> HTMLResponse:
+    spec = json.dumps(jsonable_encoder(app.openapi())).replace("<", "\\u003c").replace(">", "\\u003e")
+    return HTMLResponse(
+        f"""<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{app.title}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    SwaggerUIBundle({{
+      spec: {spec},
+      dom_id: "#swagger-ui",
+      presets: [SwaggerUIBundle.presets.apis]
+    }});
+  </script>
+</body>
+</html>"""
+    )
 
 
 @app.get("/health")
