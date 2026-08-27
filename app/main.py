@@ -45,8 +45,9 @@ app = FastAPI(
     title="LinkedIn Profile Service",
     version="0.1.0",
     lifespan=lifespan,
-    docs_url="/docs",
+    docs_url=None,
     redoc_url=None,
+    openapi_url=None,
 )
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
