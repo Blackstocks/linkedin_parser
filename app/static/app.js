@@ -61,7 +61,7 @@ function section(title, inner, show) {
 function renderProfile(payload) {
   const profile = payload.profile || {};
   const photo = profile.image_url
-    ? `<img class="avatar" src="${escapeHtml(profile.image_url)}" alt="${escapeHtml(profile.name || "Profile photo")}" />`
+    ? `<img class="avatar" src="${escapeHtml(profile.image_url)}" alt="${escapeHtml(profile.name || "Profile photo")}" referrerpolicy="no-referrer" />`
     : `<div class="avatar avatar-fallback" aria-hidden="true">${escapeHtml((profile.name || "?").slice(0, 1))}</div>`;
 
   const experience = (profile.experience || [])
@@ -132,26 +132,6 @@ function renderProfile(payload) {
     ${section("certifications", `<ul class="timeline">${certifications}</ul>`, certifications.length > 0)}
     ${section("languages", `<ul class="timeline">${languages}</ul>`, languages.length > 0)}
   `;
-}
-
-async function loadSession() {
-  try {
-    const response = await fetch("/ready");
-    const data = await response.json();
-    sessionStatus.hidden = false;
-    if (data.session_configured) {
-      sessionStatus.textContent = "Session cookies are loaded from .env.";
-      sessionStatus.className = "status ok";
-    } else {
-      sessionStatus.textContent =
-        "No LinkedIn cookies loaded. Save LINKEDIN_LI_AT and LINKEDIN_JSESSIONID in .env, then restart the server.";
-      sessionStatus.className = "status bad";
-    }
-  } catch {
-    sessionStatus.hidden = false;
-    sessionStatus.textContent = "Could not reach the API.";
-    sessionStatus.className = "status bad";
-  }
 }
 
 form.addEventListener("submit", async (event) => {

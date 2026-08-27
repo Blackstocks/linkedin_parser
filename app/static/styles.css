@@ -108,6 +108,7 @@ form label {
 
 .help code {
   font-size: 0.82rem;
+  overflow-wrap: anywhere;
 }
 
 .row {
@@ -150,6 +151,7 @@ button:disabled {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 24px;
+  overflow: hidden;
 }
 
 .profile-head {
@@ -158,6 +160,12 @@ button:disabled {
   align-items: flex-start;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.profile-head > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .avatar {
@@ -167,6 +175,7 @@ button:disabled {
   object-fit: cover;
   background: #d9d9d9;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .avatar-fallback {
@@ -207,7 +216,7 @@ button:disabled {
 
 .field {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 120px minmax(0, 1fr);
   gap: 12px;
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
@@ -223,7 +232,10 @@ button:disabled {
 
 .field dd {
   margin: 0;
+  min-width: 0;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 section {
