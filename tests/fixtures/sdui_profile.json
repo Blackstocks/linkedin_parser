@@ -1,0 +1,87 @@
+{
+  "data": {
+    "componentId": "com.linkedin.sdui.generated.profile.dsl.impl.profileCardsAboveActivity",
+    "topCard": {
+      "$type": "com.linkedin.sdui.dsl.impl.EntityComponent",
+      "title": { "text": "Jane Doe" },
+      "subtitle": { "text": "Staff Software Engineer at Example Corp" },
+      "caption": { "text": "San Francisco Bay Area" },
+      "image": {
+        "vectorImage": {
+          "rootUrl": "https://media.licdn.com/dms/image/example/",
+          "artifacts": [
+            {
+              "width": 100,
+              "fileIdentifyingUrlPathSegment": "small.jpg"
+            },
+            {
+              "width": 800,
+              "fileIdentifyingUrlPathSegment": "large.jpg"
+            }
+          ]
+        }
+      }
+    },
+    "cards": [
+      {
+        "header": { "title": { "text": "About" } }
+      },
+      {
+        "$type": "com.linkedin.sdui.generated.profile.dsl.impl.AboutCard",
+        "text": "Builder of backend systems. Previously at Example Corp and Northwind."
+      },
+      {
+        "title": { "text": "Experience" }
+      },
+      {
+        "title": { "text": "Staff Software Engineer" },
+        "subtitle": { "text": "Example Corp" },
+        "caption": { "text": "Jan 2022 - Present · 3 yrs 8 mos" },
+        "metadata": { "text": "San Francisco, CA" },
+        "description": { "text": "Led the profile API platform." }
+      },
+      {
+        "title": { "text": "Software Engineer" },
+        "subtitle": { "text": "Northwind" },
+        "caption": { "text": "Jun 2018 - Dec 2021 · 3 yrs 7 mos" },
+        "description": { "text": "Worked on identity services." }
+      },
+      {
+        "title": { "text": "Education" }
+      },
+      {
+        "title": { "text": "Stanford University" },
+        "subtitle": { "text": "M.S. Computer Science" },
+        "fieldOfStudy": { "text": "Distributed Systems" },
+        "caption": { "text": "2016 - 2018" }
+      },
+      {
+        "title": { "text": "Skills" },
+        "items": [
+          { "title": { "text": "Python" } },
+          { "title": { "text": "Distributed Systems" } },
+          { "name": "FastAPI" }
+        ]
+      },
+      {
+        "title": { "text": "Licenses & certifications" }
+      },
+      {
+        "title": { "text": "AWS Certified Solutions Architect" },
+        "subtitle": { "text": "Amazon Web Services" },
+        "caption": { "text": "Issued Jan 2024" }
+      },
+      {
+        "title": { "text": "Languages" }
+      },
+      {
+        "title": { "text": "English" },
+        "subtitle": { "text": "Native or bilingual proficiency" }
+      },
+      {
+        "name": "Spanish",
+        "proficiency": "Professional working proficiency"
+      }
+    ]
+  }
+}

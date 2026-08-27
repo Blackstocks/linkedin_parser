@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>Profile lookup</h1>
+        <p class="lede">
+          Use <strong>your</strong> LinkedIn cookies from this browser session
+          (both values together). Then paste a profile URL.
+        </p>
+      </header>
+
+      <form id="lookup-form">
+        <div class="field-block">
+          <div class="label-row">
+            <label for="li-at">li_at</label>
+            <button type="button" class="info-btn" aria-expanded="false" aria-controls="help-li-at" title="How to copy li_at">i</button>
+          </div>
+          <input
+            id="li-at"
+            name="li_at"
+            type="password"
+            required
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Cookie value (starts with AQED…)"
+          />
+          <div id="help-li-at" class="help" hidden>
+            <ol>
+              <li>Open Chrome and sign in at <code>https://www.linkedin.com</code> (your own account).</li>
+              <li>Open DevTools: Mac <code>Cmd + Option + I</code> · Windows/Linux <code>F12</code> or <code>Ctrl + Shift + I</code>.</li>
+              <li>Click the <strong>Application</strong> tab (if you do not see it, click <code>&gt;&gt;</code>).</li>
+              <li>Left sidebar: <strong>Storage → Cookies → https://www.linkedin.com</strong> (or <code>.www.linkedin.com</code>).</li>
+              <li>In the cookie list find the name <code>li_at</code>. Copy the <strong>Value</strong> column only.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <div class="label-row">
+            <label for="jsessionid">JSESSIONID</label>
+            <button type="button" class="info-btn" aria-expanded="false" aria-controls="help-jsession" title="How to copy JSESSIONID">i</button>
+          </div>
+          <input
+            id="jsessionid"
+            name="jsessionid"
+            type="password"
+            required
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Cookie value (ajax:… )"
+          />
+          <div id="help-jsession" class="help" hidden>
+            <ol>
+              <li>Stay in the same DevTools Cookies table as for <code>li_at</code> (same site, same moment).</li>
+              <li>Find the cookie named <code>JSESSIONID</code>.</li>
+              <li>Copy the <strong>Value</strong>. It looks like <code>ajax:7140…</code>. Surrounding quotes are optional.</li>
+              <li>Do not mix this with an <code>li_at</code> from another browser, profile, or an older copy. CSRF is tied to this pair.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label for="linkedin-url">linkedin_url</label>
+          <input
+            id="linkedin-url"
+            name="linkedin_url"
+            type="url"
+            required
+            placeholder="https://www.linkedin.com/in/username/"
+            autocomplete="url"
+          />
+        </div>
+
+        <button type="submit" id="submit-btn">Fetch profile</button>
+      </form>
+
+      <p id="message" class="message" hidden></p>
+      <article id="result" hidden></article>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
