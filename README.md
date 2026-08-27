@@ -69,6 +69,8 @@ flowchart TB
 
 `POST /profile`
 
+![Postman POST /profile request](docs/images/postman-request.png)
+
 ```json
 {
   "linkedin_url": "https://www.linkedin.com/in/username/",
@@ -76,6 +78,8 @@ flowchart TB
   "jsessionid": "<cookie value>"
 }
 ```
+
+![Example profile JSON response](docs/images/profile-response.png)
 
 ```json
 {
