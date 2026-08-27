@@ -1,6 +1,6 @@
 # LinkedIn Profile Service
 
-Backend for a hiring challenge that **replays your own authenticated LinkedIn browser session** and returns a profile as structured JSON.
+Backend that **replays your own authenticated LinkedIn browser session** and returns a profile as structured JSON.
 
 It does not log in for you, solve CAPTCHA, bypass rate limits, or evade bot checks. You copy cookies from a session you already established in Chrome and supply them through environment variables.
 
